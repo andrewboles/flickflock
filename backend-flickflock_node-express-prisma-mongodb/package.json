@@ -1,6 +1,5 @@
 {
-  "name": "prisma-express-auth-starter",
-  "version": "1.2.0",
+  "name": "flickflock-backend",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -11,7 +10,6 @@
   },
   "keywords": [],
   "author": "Andrew Boles",
-  "license": "MIT",
   "dependencies": {
     "@babel/preset-react": "^7.16.7",
     "@google-cloud/storage": "^5.19.4",
