@@ -1,0 +1,90 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  
+}
+
+model Post {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  comments    Comment[]
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String    @db.ObjectId
+  hearts      Heart[]
+  createdAt   DateTime  @default(now())
+  downloadUrl String
+}
+
+// Comments contain a comment string and connect back to the post.
+// postId must have @db.ObjectId to match up with Post's id type
+model Comment {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  post         Post           @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId       String         @db.ObjectId
+  comment      String
+  User         User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String?        @db.ObjectId
+  createdAt    DateTime       @default(now())
+  CommentHearts CommentHeart[]
+}
+
+model Heart {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  post   Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String  @db.ObjectId
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+}
+
+model CommentHeart {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId String  @db.ObjectId
+  User      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String @db.ObjectId
+}
+
+model User {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  username      Username?
+  email         String         @unique
+  password      String?
+  followings    Follows[]      @relation("follower")
+  followers     Follows[]      @relation("following")
+  posts         Post[]
+  comments      Comment[]
+  hearts        Heart[]
+  authStrategy  String         @default("email")
+  createdAt     DateTime       @default(now())
+  refreshTokens RefreshToken[]
+  CommentHeart  CommentHeart[]
+  profilePictureUrl String?
+}
+
+model Username {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String @unique @db.ObjectId
+  username String @unique
+}
+
+model Follows {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  follower    User   @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  followerId  String
+  following   User   @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
+  followingId String
+}
+
+model RefreshToken {
+  id          String   @id @default(uuid()) @map("_id")
+  hashedToken String
+  userId      String
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

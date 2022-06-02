@@ -1,0 +1,44 @@
+{
+  "name": "prisma-express-auth-starter",
+  "version": "1.2.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint --fix src",
+    "test": "mocha --exit",
+    "vercel-build": "prisma generate"
+  },
+  "keywords": [],
+  "author": "Andrew Boles",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/preset-react": "^7.16.7",
+    "@google-cloud/storage": "^5.19.4",
+    "@prisma/client": "^3.14.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "passport": "^0.5.2",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "mocha": "^9.0.0",
+    "nodemon": "^2.0.7",
+    "prisma": "^3.14.0",
+    "supertest": "^6.1.3"
+  }
+}

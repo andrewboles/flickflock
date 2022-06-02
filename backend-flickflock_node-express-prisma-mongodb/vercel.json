@@ -1,0 +1,24 @@
+{
+  "version": 2,
+    "builds": [
+      {
+        "src": "./index.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+        "headers": {
+          "Access-Control-Allow-Origin": "https://flickflock.xyz",
+          "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE, PUT, PATCH",
+          "Access-Control-Allow-Headers": "Set-Cookie, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, X-HTTP-Method-Override, Content-MD5, Content-Type, Date, X-Api-Version, Origin",
+          "Access-Control-Allow-Credentials": "true"
+        },
+        "dest": "/",
+        "continue": true
+        
+      }
+    ]
+  }
