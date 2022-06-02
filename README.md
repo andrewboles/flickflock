@@ -7,6 +7,7 @@ This is FlickFlck, a Full Stack Next.js + Node/Express Video-centric social medi
 - Server-side rendering
 - CRUD operations on posts, post comments, post likes, and comment likes.
 - Followers/Followings
+- Client-side video uploading is handled via AWS SDK, and stored on Wasabi
 - Built with: Next.js, React, Node.js, Express, Prisma, & MongoDB
 - Hosted on Vercel (backend running using serverless functions)
 
