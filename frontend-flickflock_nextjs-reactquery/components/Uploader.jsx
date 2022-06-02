@@ -1,4 +1,3 @@
-import { storage, STATE_CHANGED } from '../lib/firebase';
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../lib/context";
 import Loader from "./Loader";
@@ -26,8 +25,8 @@ export default function Uploader({ currentUser }) {
     const s3 = new S3({
       correctClockSkew: true,
       endpoint: 'https://s3.us-central-1.wasabisys.com', 
-      accessKeyId: 'RE6657UX0JQ7UF1ECM9J',
-      secretAccessKey: 'DzSuVBfPLpJWpcVJeifRJBHmAwtcalJpn52p7VES',
+      accessKeyId: process.env.NEXT_PUBLIC_WASABI_KEY,
+      secretAccessKey: process.env.NEXT_PUBLIC_WASABI_SECRET,
       region: 'us-central-1'
     });
   
@@ -71,32 +70,6 @@ export default function Uploader({ currentUser }) {
          await uploadFile(e)
         }
     };
-
-
-  /* const uploadFile = async (e) => {
-    // Get the file
-    const file = Array.from(e.target.files)[0];
-    const extension = file.type.split('/')[1];
-    // Makes reference to the storage bucket location
-    let ref = storage.ref(`/videos/${Date.now()}.${extension}`);
-    setUploading(true);
-
-    // Starts the upload
-    const task = ref.put(file);
-
-    // Listen to updates to upload task
-    task.on(STATE_CHANGED, (snapshot) => {
-      const pct = ((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
-      setProgress(pct);
-      // Get downloadURL AFTER task resolves 
-      task
-        .then((d) => ref.getDownloadURL())
-        .then((url) => {
-          setDownloadURL(url);
-        });
-    }, function error(err){}, async () => { return null});
-    
-  }; */
 
   return (
     <div className="box-loader">
