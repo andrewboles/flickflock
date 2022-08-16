@@ -280,7 +280,7 @@ function LoginRegister({ router }) {
   };
 
   return (
-    <div className="login-card">
+    <div className="login-card" style={{maxWidth: 600, display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: 'auto', marginRight: 'auto'}}>
       <Tabs color="grape" tabPadding="sm">
         <Tabs.Tab label="Login">
           <form onSubmit={onLoginSubmit}>
